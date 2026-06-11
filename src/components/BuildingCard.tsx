@@ -1,30 +1,17 @@
 import { LuHouse, LuMapPinHouse } from "react-icons/lu";
 import type { BuildingResponse } from "../types/api";
 import { Link } from "react-router-dom";
-
-const STATE_LABELS: Record<string, { label: string; color: string }> = {
-  BUILDING_AVAILABLE:   { label: "Disponible",   color: "bg-emerald-100 text-emerald-800" },
-  BUILDING_SOLD:        { label: "Vendu",      color: "bg-slate-100 text-slate-500" },
-};
-
-const ZONE_LABELS: Record<string, string> = {
-  ZONE_CENTRE:      "Centre",
-  ZONE_BANLIEUE:    "Banlieue",
-};
-
-const TYPE_LABELS: Record<string, string> = {
-  APARTMENT:  "Appartement",
-  HOUSE:      "Maison",
-  HOTEL:      "Hotel",
-  COMPLEXE:   "Complexe",
-  COMMERCIAL: "Local commercial",
-  GARAGE:     "Garage",
-};
+import { TYPE_LABELS, ZONE_LABELS } from "../types/formattedBuildingUtils";
 
 interface BuildingCardProps {
   building: BuildingResponse;
   picturePath?: string;
 }
+
+const STATE_LABELS: Record<string, { label: string; color: string }> = {
+  BUILDING_AVAILABLE:   { label: "Disponible",   color: "bg-emerald-100 text-emerald-800" },
+  BUILDING_SOLD:        { label: "Vendu",      color: "bg-slate-100 text-slate-500" },
+};
 
 export default function BuildingCard({ building, picturePath }: BuildingCardProps) {
   const stateInfo = STATE_LABELS[building.state] ?? { label: building.state, color: "bg-slate-100 text-slate-600" };

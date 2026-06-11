@@ -5,6 +5,7 @@ import Navbar from "./components/Navbar";
 import Footer from "./components/Footer";
 import HomePage from "./pages/HomePage";
 import { BrowserRouter, Route, Routes } from "react-router-dom";
+import { BuildingPage } from "./pages/BuildingPage";
 
 export default function App() {
   const [agencies, setAgencies] = useState<AgencyResponse[]>([]);
@@ -31,6 +32,7 @@ export default function App() {
         <BrowserRouter>
           <Routes>
             <Route path="/" element={<HomePage selectedAgency={selectedAgency} />}/>
+            <Route path="/buildings/*" element={<BuildingPage />}/>
           </Routes>
         </BrowserRouter>
       </div>
