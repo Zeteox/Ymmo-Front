@@ -5,6 +5,7 @@ import Navbar from "./components/Navbar";
 import Footer from "./components/Footer";
 import HomePage from "./pages/HomePage";
 import { BrowserRouter, Route, Routes } from "react-router-dom";
+import AuthPage from "./pages/AuthPage";
 
 export default function App() {
   const [agencies, setAgencies] = useState<AgencyResponse[]>([]);
@@ -31,6 +32,8 @@ export default function App() {
         <BrowserRouter>
           <Routes>
             <Route path="/" element={<HomePage selectedAgency={selectedAgency} />}/>
+            <Route path="/login" element={<AuthPage />}/>
+            <Route path="/register" element={<AuthPage agencies={agencies} isRegister={true}/>}/>
           </Routes>
         </BrowserRouter>
       </div>
