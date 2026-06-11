@@ -46,3 +46,9 @@ export interface TrendByZoneTypeResponse {
   sales_count: number;
 }
 
+export interface ContactDemandResponse {
+  id: number;
+  content: string;
+  userId: number;
+  buildingId: number;
+}
