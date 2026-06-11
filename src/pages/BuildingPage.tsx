@@ -14,6 +14,10 @@ import {
 import { PictureCarousel } from "../components/PictureCarousel";
 import { Badge } from "../components/Badge";
 import { Link } from "react-router-dom";
+import { favoriteApiService } from "../services/favoriteApiService";
+import { demandApiService } from "../services/demandApiService";
+import { ContactModal } from "../components/ContactModal";
+import { userApiService } from "../services/userApiService";
 
 export function BuildingPage() {
   const buildingId = getBuildingIdFromUrl();
@@ -24,6 +28,7 @@ export function BuildingPage() {
   const [error, setError] = useState<string | null>(null);
   const [favorited, setFavorited] = useState(false);
   const [favLoading, setFavLoading] = useState(false);
+  const [contactOpen, setContactOpen] = useState(false);
 
   useEffect(() => {
     if (!buildingId) { setError("Identifiant de bien invalide."); setLoading(false); return; }
@@ -42,7 +47,7 @@ export function BuildingPage() {
 
   useEffect(() => {
     if (!buildingId) return;
-    //setFavorited(); call isFavorite(id)
+    favoriteApiService.isFavorite(buildingId).then(resp => setFavorited(resp));
   }, [buildingId]);
 
   const toggleFavorite = useCallback(async () => {
@@ -56,16 +61,33 @@ export function BuildingPage() {
     setFavLoading(true);
     try {
       if (favorited) {
-        //Remove Favorite
+        await favoriteApiService.removeFavorite(buildingId);
+        setFavorited(false);
       } else {
-        //Add Favorite
+        await favoriteApiService.addFavorite(buildingId);
+        setFavorited(true);
       }
     } catch {
-      console.error("error adding favorite")
+      console.error("error adding favorite");
     } finally {
       setFavLoading(false);
     }
   }, [buildingId, favorited, favLoading]);
+
+  const handleTakeContact = () => {
+    const token = localStorage.getItem("token");
+    if (!token) {
+      window.location.href = "/login";
+      return;
+    }
+    setContactOpen(true);
+  };
+
+  const handleSubmitDemand = async (message: string) => {
+    if (!buildingId) return;
+    const user = await userApiService.getMe()
+    await demandApiService.addDemand(buildingId.toString(), { userId: user.id, content: message });
+  };
 
   const formattedPrice = building
     ? new Intl.NumberFormat("fr-FR", { style: "currency", currency: "EUR", maximumFractionDigits: 0 }).format(building.price)
@@ -96,6 +118,14 @@ export function BuildingPage() {
 
   return (
     <div className="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 py-10">
+
+      {contactOpen && (
+        <ContactModal
+          buildingName={building.name}
+          onClose={() => setContactOpen(false)}
+          onSubmit={handleSubmitDemand}
+        />
+      )}
 
       <Link
         to="/"
@@ -187,7 +217,10 @@ export function BuildingPage() {
             </p>
           </div>
 
-          <button className="mt-auto w-full bg-blue-600 hover:bg-blue-500 text-white font-semibold py-3 rounded-xl transition-colors">
+          <button
+            onClick={handleTakeContact}
+            className="mt-auto w-full bg-blue-600 hover:bg-blue-500 text-white font-semibold py-3 rounded-xl transition-colors"
+          >
             Prendre contact
           </button>
         </div>
