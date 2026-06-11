@@ -4,6 +4,7 @@ import type { AgencyResponse } from "../types/api";
 import { FaHouse } from "react-icons/fa6";
 import { IoIosArrowDown } from "react-icons/io";
 import { HiOutlineMail, HiOutlineLockClosed, HiOutlineUser, HiOutlinePhone, HiOutlineEye, HiOutlineEyeOff, HiOutlineOfficeBuilding } from "react-icons/hi";
+import { Link } from "react-router-dom";
 
 interface AuthPageProps {
   agencies?: AgencyResponse[];
@@ -11,14 +12,13 @@ interface AuthPageProps {
 }
 
 export default function AuthPage({ agencies = [], isRegister = false }: AuthPageProps) {
-  // --- Shared state ---
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [showPassword, setShowPassword] = useState(false);
   const [error, setError] = useState("");
   const [loading, setLoading] = useState(false);
 
-  // --- Register only ---
+  // register
   const [firstName, setFirstName] = useState("");
   const [lastName, setLastName] = useState("");
   const [phone, setPhone] = useState("");
@@ -92,7 +92,6 @@ export default function AuthPage({ agencies = [], isRegister = false }: AuthPage
 
   return (
     <div className="min-h-screen bg-slate-950 flex flex-col items-center justify-center px-4 py-16">
-      {/* Logo */}
       <a href="/" className="flex items-center gap-2 mb-10">
         <div className="w-9 h-9 bg-blue-600 rounded-sm flex items-center justify-center shadow-lg shadow-blue-600/30">
           <FaHouse className="text-white w-4 h-4" />
@@ -105,10 +104,8 @@ export default function AuthPage({ agencies = [], isRegister = false }: AuthPage
         </span>
       </a>
 
-      {/* Card */}
       <div className="w-full max-w-md bg-slate-900 border border-slate-800 rounded-2xl shadow-2xl overflow-hidden">
 
-        {/* Tab switcher */}
         <div className="flex border-b border-slate-800">
           <a
             href="/login"
@@ -134,7 +131,6 @@ export default function AuthPage({ agencies = [], isRegister = false }: AuthPage
 
         <div className="p-8">
 
-          {/* Heading */}
           <h1
             className="text-xl font-bold text-white mb-1"
             style={{ fontFamily: "'Playfair Display', serif" }}
@@ -147,7 +143,6 @@ export default function AuthPage({ agencies = [], isRegister = false }: AuthPage
               : "Connectez-vous à votre espace client."}
           </p>
 
-          {/* Error */}
           {error && (
             <div className="mb-5 px-4 py-3 rounded-lg bg-red-950 border border-red-800 text-red-300 text-sm">
               {error}
@@ -156,7 +151,6 @@ export default function AuthPage({ agencies = [], isRegister = false }: AuthPage
 
           <form onSubmit={isRegister ? handleRegister : handleLogin} className="space-y-4">
 
-            {/* Register extra fields */}
             {isRegister && (
               <div className="grid grid-cols-2 gap-3">
                 <div>
@@ -190,7 +184,6 @@ export default function AuthPage({ agencies = [], isRegister = false }: AuthPage
               </div>
             )}
 
-            {/* Phone (register only) */}
             {isRegister && (
               <div>
                 <label className="block text-xs text-slate-400 font-medium mb-1.5">Téléphone</label>
@@ -208,7 +201,6 @@ export default function AuthPage({ agencies = [], isRegister = false }: AuthPage
               </div>
             )}
 
-            {/* Agency picker (register only) */}
             {isRegister && (
               <div>
                 <label className="block text-xs text-slate-400 font-medium mb-1.5">Agence</label>
@@ -270,7 +262,6 @@ export default function AuthPage({ agencies = [], isRegister = false }: AuthPage
               </div>
             )}
 
-            {/* Email */}
             <div>
               <label className="block text-xs text-slate-400 font-medium mb-1.5">Adresse e-mail</label>
               <div className="relative">
@@ -286,7 +277,6 @@ export default function AuthPage({ agencies = [], isRegister = false }: AuthPage
               </div>
             </div>
 
-            {/* Password */}
             <div>
               <div className="flex items-center justify-between mb-1.5">
                 <label className="block text-xs text-slate-400 font-medium">Mot de passe</label>
@@ -316,7 +306,6 @@ export default function AuthPage({ agencies = [], isRegister = false }: AuthPage
               </div>
             </div>
 
-            {/* Confirm password (register only) */}
             {isRegister && (
               <div>
                 <label className="block text-xs text-slate-400 font-medium mb-1.5">Confirmer le mot de passe</label>
@@ -348,7 +337,6 @@ export default function AuthPage({ agencies = [], isRegister = false }: AuthPage
               </div>
             )}
 
-            {/* Submit */}
             <button
               type="submit"
               disabled={loading}
@@ -362,28 +350,26 @@ export default function AuthPage({ agencies = [], isRegister = false }: AuthPage
             </button>
           </form>
 
-          {/* Bottom switch link */}
           <p className="mt-6 text-center text-sm text-slate-500">
             {isRegister ? (
               <>
                 Déjà un compte ?{" "}
-                <a href="/login" className="text-blue-400 hover:text-blue-300 font-medium transition-colors">
+                <Link to="/login" className="text-blue-400 hover:text-blue-300 font-medium transition-colors">
                   Se connecter
-                </a>
+                </Link>
               </>
             ) : (
               <>
                 Pas encore de compte ?{" "}
-                <a href="/register" className="text-blue-400 hover:text-blue-300 font-medium transition-colors">
+                <Link to="/register" className="text-blue-400 hover:text-blue-300 font-medium transition-colors">
                   S'inscrire gratuitement
-                </a>
+                </Link>
               </>
             )}
           </p>
         </div>
       </div>
 
-      {/* Back to home */}
       <a href="/" className="mt-8 text-xs text-slate-600 hover:text-slate-400 transition-colors">
         ← Retour à l'accueil
       </a>
