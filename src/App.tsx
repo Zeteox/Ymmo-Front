@@ -8,6 +8,7 @@ import { BrowserRouter, Route, Routes } from "react-router-dom";
 import AuthPage from "./pages/AuthPage";
 import ProfilePage from "./pages/ProfilePage";
 import { userApiService } from "./services/userApiService";
+import { BuildingPage } from "./pages/BuildingPage";
 
 export default function App() {
   const [agencies, setAgencies] = useState<AgencyResponse[]>([]);
@@ -48,6 +49,7 @@ export default function App() {
             <Route path="/login" element={<AuthPage />}/>
             <Route path="/register" element={<AuthPage agencies={agencies} isRegister={true}/>}/>
             <Route path="/profile" element={<ProfilePage />} />
+            <Route path="/buildings/*" element={<BuildingPage />}/>
           </Routes>
         </BrowserRouter>
       </div>
