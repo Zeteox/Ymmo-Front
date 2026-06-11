@@ -104,12 +104,17 @@ export default function Navbar({ agencies, selectedAgency, onSelectAgency }: Nav
 
           <div className="hidden md:flex items-center gap-3 shrink-0 ml-auto">
             {isAuthenticated ? (
-              <button
-                onClick={handleLogout}
-                className="text-sm text-slate-400 hover:text-white transition-colors"
-              >
-                Déconnexion
-              </button>
+              <>
+                <button
+                  onClick={handleLogout}
+                  className="text-sm text-slate-400 hover:text-white transition-colors"
+                >
+                  Déconnexion
+                </button>
+                <a href="/profile" className="text-sm bg-blue-600 hover:bg-blue-500 text-white px-4 py-1.5 rounded-full transition-colors">
+                  Profile
+                </a>
+              </>
             ) : (
               <>
                 <a href="/login" className="text-sm text-slate-300 hover:text-white transition-colors">
@@ -161,9 +166,15 @@ export default function Navbar({ agencies, selectedAgency, onSelectAgency }: Nav
           </div>
 
           {isAuthenticated ? (
-            <button onClick={handleLogout} className="w-full text-center text-sm text-slate-400 hover:text-white py-2">
-              Déconnexion
-            </button>
+            
+            <div className="flex gap-3">
+              <button onClick={handleLogout} className="w-full text-center text-sm text-slate-400 hover:text-white py-2">
+                Déconnexionadzazd
+              </button>
+              <a href="/profile" className="flex-1 text-center text-sm bg-blue-600 text-white rounded-full py-2 hover:bg-blue-500">
+                Profile
+              </a>
+            </div>
           ) : (
             <div className="flex gap-3">
               <a href="/login" className="flex-1 text-center text-sm text-slate-300 border border-slate-700 rounded-full py-2 hover:bg-slate-800">
