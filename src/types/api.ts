@@ -29,6 +29,7 @@ export interface UserResponse {
   phone: string;
   isActive: boolean;
   role: string;
+  agencyId: number;
 }
 
 export interface AuthResponse {
