@@ -3,6 +3,7 @@ import type { AgencyResponse } from "../types/api";
 import { FaHouse } from "react-icons/fa6";
 import { IoIosArrowDown } from "react-icons/io";
 import { RxCross2, RxHamburgerMenu } from "react-icons/rx";
+import { userApiService } from "../services/userApiService";
 
 interface NavbarProps {
   agencies: AgencyResponse[];
@@ -12,14 +13,30 @@ interface NavbarProps {
 
 export default function Navbar({ agencies, selectedAgency, onSelectAgency }: NavbarProps) {
   const [isAuthenticated, setAuthenticated] = useState(false);
+  const [isAgent, setAgent] = useState(false);
+  const [authReady, setAuthReady] = useState(false);
   const [menuOpen, setMenuOpen] = useState(false);
   const [agencyDropdownOpen, setAgencyDropdownOpen] = useState(false);
   const dropdownRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
-    const token = window.localStorage.getItem("token");
-    setAuthenticated(token != null);
+    userApiService.getMe()
+    .then(user => {
+      if (!user) return;
+      setAuthenticated(true);
+      setAgent(user.role == "ROLE_AGENT");
+    })
+    .catch(() => {
+      setAuthenticated(false);
+    })
+    .finally(() => setAuthReady(true));;
   }, []);
+
+  useEffect(() => {
+    if (!authReady) return;
+    if (!isAgent && window.location.pathname === "/agent_dashboard") window.location.replace("/");
+    if (!isAuthenticated && window.location.pathname === "/profile") window.location.replace("/");
+  }, [authReady]);
 
   useEffect(() => {
     const handler = (e: MouseEvent) => {
@@ -111,6 +128,11 @@ export default function Navbar({ agencies, selectedAgency, onSelectAgency }: Nav
                 >
                   Déconnexion
                 </button>
+                {isAgent ? (
+                  <a href="/agent_dashboard" className="text-sm text-slate-300 hover:text-white transition-colors">
+                    Dashboard
+                  </a>
+                ) : null}
                 <a href="/profile" className="text-sm bg-blue-600 hover:bg-blue-500 text-white px-4 py-1.5 rounded-full transition-colors">
                   Profile
                 </a>
@@ -169,8 +191,13 @@ export default function Navbar({ agencies, selectedAgency, onSelectAgency }: Nav
             
             <div className="flex gap-3">
               <button onClick={handleLogout} className="w-full text-center text-sm text-slate-400 hover:text-white py-2">
-                Déconnexionadzazd
+                Déconnexion
               </button>
+              {isAgent ? (
+                <a href="/agent_dashboard" className="flex-1 text-center text-sm text-slate-300 border border-slate-700 rounded-full py-2 hover:bg-slate-800">
+                  Dashboard
+                </a>
+              ) : null}
               <a href="/profile" className="flex-1 text-center text-sm bg-blue-600 text-white rounded-full py-2 hover:bg-blue-500">
                 Profile
               </a>

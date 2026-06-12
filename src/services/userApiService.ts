@@ -3,7 +3,8 @@ import type { UserResponse } from "../types/api";
 const BASE_URL = import.meta.env.VITE_MAIN_API_URL;
 
 export const userApiService = {
-    async getMe():Promise<UserResponse> {
+    async getMe():Promise<UserResponse | undefined> {
+        if (!localStorage.getItem("token")) return undefined;
         const response = await fetch(BASE_URL + "/users/me", {
             method: "GET",
             headers: {

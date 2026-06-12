@@ -1,4 +1,4 @@
-import { useEffect, useState, useCallback } from "react";
+import { useEffect, useState, useCallback, use } from "react";
 import { fetchBuildingById, fetchBuildingPictures, getBuildingIdFromUrl } from "../services/api";
 import type { BuildingResponse, BuildingPictureResponse } from "../types/api";
 import { STATE_LABELS, TYPE_LABELS, ZONE_LABELS } from "../types/formattedBuildingUtils";
@@ -86,6 +86,7 @@ export function BuildingPage() {
   const handleSubmitDemand = async (message: string) => {
     if (!buildingId) return;
     const user = await userApiService.getMe()
+    if (!user) return;
     await demandApiService.addDemand(buildingId.toString(), { userId: user.id, content: message });
   };
 

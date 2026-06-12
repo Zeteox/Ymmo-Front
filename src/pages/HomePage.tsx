@@ -87,6 +87,11 @@ export default function HomePage({ selectedAgency }: HomePageProps) {
     BUILDING_SOLD: "Vendu",
   };
 
+  const getCleanName = (name: String) => {
+    name = name.split("_").join(" ");
+    return name[0].toUpperCase() + name.slice(1).toLowerCase();
+  }
+
   return (
     <main>
       <section className="relative min-h-105 flex items-center bg-slate-900 overflow-hidden">
@@ -105,16 +110,16 @@ export default function HomePage({ selectedAgency }: HomePageProps) {
           {selectedAgency ? (
             <>
               <p className="text-blue-400 text-sm font-semibold uppercase tracking-widest mb-3">
-                {selectedAgency.city}
+                {getCleanName(selectedAgency.city)}
               </p>
               <h1
                 className="text-4xl sm:text-5xl font-bold text-white mb-4 leading-tight"
                 style={{ fontFamily: "'Playfair Display', serif" }}
               >
-                Bienvenue chez <span className="text-blue-400">{selectedAgency.name}</span>
+                Bienvenue chez <span className="text-blue-400">{getCleanName(selectedAgency.name)}</span>
               </h1>
               <p className="text-slate-400 text-lg max-w-xl mx-auto">
-                Découvrez notre sélection de biens immobiliers à {selectedAgency.city}.
+                Découvrez notre sélection de biens immobiliers à {getCleanName(selectedAgency.city)}.
               </p>
               <p className="mt-6 text-slate-500 text-sm">
                 {buildings.length > 0 ? `${buildings.length} bien${buildings.length > 1 ? "s" : ""} disponible${buildings.length > 1 ? "s" : ""}` : ""}
