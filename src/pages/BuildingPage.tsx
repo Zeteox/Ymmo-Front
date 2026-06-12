@@ -86,6 +86,7 @@ export function BuildingPage() {
   const handleSubmitDemand = async (message: string) => {
     if (!buildingId) return;
     const user = await userApiService.getMe()
+    if (!user) return;
     await demandApiService.addDemand(buildingId.toString(), { userId: user.id, content: message });
   };
 
@@ -140,18 +141,16 @@ export function BuildingPage() {
         <div>
           <PictureCarousel pictures={pictures} name={building.name} />
 
-          {pictures.length > 1 && (
-            <div className="flex gap-2 mt-3 overflow-x-auto pb-1" style={{ scrollbarWidth: "none" }}>
-              {pictures.map((pic, i) => (
-                <img
-                  key={pic.id}
-                  src={`/${pic.path}`}
-                  alt={`miniature ${i + 1}`}
-                  className="w-16 h-12 object-cover rounded-lg shrink-0 cursor-pointer border-2 transition-all"
-                />
-              ))}
-            </div>
-          )}
+          <div className="flex flex-row gap-2 mt-3 overflow-x-auto pb-1" style={{ scrollbarWidth: "none" }}>
+            {pictures.map((pic, i) => (
+              <img
+                key={pic.id}
+                alt={`miniature ${i + 1}`}
+                src={pic.data ? `data:${pic.contentType};base64,${pic.data}` : undefined}
+                className="w-16 h-12 object-cover rounded-lg shrink-0 cursor-pointer border-2 transition-all"
+              />
+            ))}
+          </div>
         </div>
 
         <div className="flex flex-col gap-5">

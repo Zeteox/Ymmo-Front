@@ -25,11 +25,10 @@ export function PictureCarousel({ pictures, name }: CarouselProps) {
 
   return (
     <div className="relative w-full aspect-video rounded-2xl overflow-hidden bg-slate-100 group">
-      {/* Images */}
       {pictures.map((pic, i) => (
         <img
           key={pic.id}
-          src={`/${pic.path}`}
+          src={pic.data ? `data:${pic.contentType};base64,${pic.data}` : undefined}
           alt={`${name} — photo ${i + 1}`}
           className={`absolute inset-0 w-full h-full object-cover transition-opacity duration-500 ${
             i === current ? "opacity-100" : "opacity-0"

@@ -19,6 +19,8 @@ export interface BuildingPictureResponse {
   id: number;
   path: string;
   buildingId: number;
+  contentType: string | null;
+  data: string | null;
 }
 
 export interface UserResponse {
@@ -51,4 +53,18 @@ export interface ContactDemandResponse {
   content: string;
   userId: number;
   buildingId: number;
+}
+
+export interface TransactionResponse {
+  id: number;
+  buildingId: number;
+  buildingName: string;
+  buyerId: number;
+  buyerFullName: string;
+  agentId: number;
+  agentFullName: string;
+  agencyId: number;
+  agencyName: string;
+  amount: number;
+  date: string;
 }
