@@ -18,4 +18,18 @@ export const userApiService = {
         }
         return await response.json()
     },
+    async getUserById(userid:string):Promise<UserResponse | undefined> {
+        const response = await fetch(BASE_URL + "/users/" + userid, {
+            method: "GET",
+            headers: {
+                "Content-Type": "application/json",
+                "Authorization": `Bearer ${localStorage.getItem("token")}`
+            },
+        })
+        if (response.status != 200) {
+            console.error("couldnt fetch user by id: " + userid)
+            return undefined;
+        }
+        return await response.json()
+    },
 }

@@ -9,6 +9,7 @@ import AuthPage from "./pages/AuthPage";
 import ProfilePage from "./pages/ProfilePage";
 import { userApiService } from "./services/userApiService";
 import { BuildingPage } from "./pages/BuildingPage";
+import DashboardPage from "./pages/DashboardPage";
 
 export default function App() {
   const [agencies, setAgencies] = useState<AgencyResponse[]>([]);
@@ -18,6 +19,7 @@ export default function App() {
     const handleSetAgency = (agencies:AgencyResponse[]) => {
       if (localStorage.getItem("token")) {
         userApiService.getMe().then(user => {
+          if (user == undefined) return;
           const agency = agencies.find(a => a.id === user.agencyId) ?? agencies[0];
           setSelectedAgency(agency);
         }).catch(e => console.error("erreur chargement agence " + e));
@@ -49,6 +51,7 @@ export default function App() {
             <Route path="/login" element={<AuthPage />}/>
             <Route path="/register" element={<AuthPage agencies={agencies} isRegister={true}/>}/>
             <Route path="/profile" element={<ProfilePage />} />
+            <Route path="/agent_dashboard" element={<DashboardPage />}/>
             <Route path="/buildings/*" element={<BuildingPage />}/>
           </Routes>
         </BrowserRouter>

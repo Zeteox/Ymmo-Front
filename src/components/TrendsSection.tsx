@@ -1,13 +1,13 @@
 import { useEffect, useState, useRef } from "react";
 import { FaArrowTrendUp, FaChevronLeft, FaChevronRight } from "react-icons/fa6";
-import type { BuildingResponse, TrendByZoneTypeResponse } from "../types/api";
+import type { BuildingPictureResponse, BuildingResponse, TrendByZoneTypeResponse } from "../types/api";
 import BuildingCard from "./BuildingCard";
 
 const PYTHON_API = import.meta.env.VITE_PYTHON_API_URL ?? "http://localhost:5100";
 
 interface TrendsSectionProps {
   buildings: BuildingResponse[];
-  pictures: Record<number, string>;
+  pictures: Record<number, BuildingPictureResponse>;
   agencyName: string;
 }
 
@@ -132,7 +132,7 @@ export default function TrendsSection({ buildings, pictures, agencyName }: Trend
                 )}
                 <BuildingCard
                   building={building}
-                  picturePath={pictures[building.id]}
+                  picture={pictures[building.id]}
                 />
               </div>
             ))}

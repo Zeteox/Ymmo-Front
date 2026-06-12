@@ -13,7 +13,7 @@ const PAGE_SIZE = 9;
 
 export default function HomePage({ selectedAgency }: HomePageProps) {
   const [buildings, setBuildings] = useState<BuildingResponse[]>([]);
-  const [pictures, setPictures] = useState<Record<number, string>>({});
+  const [pictures, setPictures] = useState<Record<number, BuildingPictureResponse>>({});
   const [loadingBuildings, setLoadingBuildings] = useState(false);
   const [error, setError] = useState<string | null>(null);
   const [page, setPage] = useState(1);
@@ -33,17 +33,17 @@ export default function HomePage({ selectedAgency }: HomePageProps) {
         setBuildings(data);
 
         const picEntries = await Promise.all(
-          data.map(async (b): Promise<[number, string] | null> => {
+          data.map(async (b): Promise<[number, BuildingPictureResponse] | null> => {
             try {
               const pics: BuildingPictureResponse[] = await fetchBuildingPictures(b.id);
-              return pics.length > 0 ? [b.id, pics[0].path] : null;
+              return pics.length > 0 ? [b.id, pics[0]] : null;
             } catch {
               return null;
             }
           })
         );
 
-        const picMap: Record<number, string> = {};
+        const picMap: Record<number, BuildingPictureResponse> = {};
         for (const entry of picEntries) {
           if (entry) picMap[entry[0]] = entry[1];
         }
@@ -90,7 +90,7 @@ export default function HomePage({ selectedAgency }: HomePageProps) {
   const getCleanName = (name: String) => {
     name = name.split("_").join(" ");
     return name[0].toUpperCase() + name.slice(1).toLowerCase();
-  }
+  };
 
   return (
     <main>
@@ -219,7 +219,7 @@ export default function HomePage({ selectedAgency }: HomePageProps) {
 
             {!loadingBuildings && !error && filtered.length === 0 && (
               <div className="text-center py-20 text-slate-400">
-                <PiHouseSimpleLight className="text-slate-400 w-12 h-12 mx-auto mb-4 opacity-30"/>
+                <PiHouseSimpleLight className="text-slate-400 w-12 h-12 mx-auto mb-4 opacity-30" />
                 <p className="text-sm">Aucun bien ne correspond à vos filtres.</p>
                 <button
                   onClick={() => { setFilterType("ALL"); setFilterState("ALL"); }}
@@ -237,7 +237,7 @@ export default function HomePage({ selectedAgency }: HomePageProps) {
                     <BuildingCard
                       key={building.id}
                       building={building}
-                      picturePath={pictures[building.id]}
+                      picture={pictures[building.id]}
                     />
                   ))}
                 </div>
