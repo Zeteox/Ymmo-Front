@@ -70,7 +70,6 @@ export function AddTransactionModal({
       onClick={(e) => e.target === e.currentTarget && onClose()}
     >
       <div className="bg-white rounded-2xl shadow-xl w-full max-w-md mx-4 overflow-hidden">
-        {/* Header */}
         <div className="flex items-center justify-between px-6 py-5 border-b border-slate-100">
           <div className="flex items-center gap-2.5">
             <div className="w-8 h-8 rounded-full bg-emerald-100 flex items-center justify-center">
@@ -92,7 +91,6 @@ export function AddTransactionModal({
           </button>
         </div>
 
-        {/* Body */}
         <div className="px-6 py-5 space-y-4">
           <Field
             label="ID du bien"
@@ -121,7 +119,6 @@ export function AddTransactionModal({
             step="0.01"
           />
 
-          {/* Pre-filled info */}
           <div className="grid grid-cols-2 gap-3">
             <div className="bg-slate-50 rounded-xl px-4 py-3">
               <p className="text-xs text-slate-400 mb-1">Agent (vous)</p>
@@ -138,7 +135,6 @@ export function AddTransactionModal({
           )}
         </div>
 
-        {/* Footer */}
         <div className="flex gap-3 px-6 py-4 border-t border-slate-100">
           <button
             onClick={onClose}

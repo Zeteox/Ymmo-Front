@@ -257,7 +257,6 @@ export default function DashboardPage() {
 
       <div className="grid grid-cols-1 lg:grid-cols-5 gap-6">
 
-        {/* Forecast */}
         <div className="lg:col-span-3 bg-white border border-slate-100 rounded-2xl p-6 shadow-sm">
           <div className="flex items-center gap-2 mb-5">
             <FaChartBar className="text-blue-500 w-4 h-4" />

@@ -25,7 +25,6 @@ export function PictureCarousel({ pictures, name }: CarouselProps) {
 
   return (
     <div className="relative w-full aspect-video rounded-2xl overflow-hidden bg-slate-100 group">
-      {/* Images */}
       {pictures.map((pic, i) => (
         <img
           key={pic.id}
