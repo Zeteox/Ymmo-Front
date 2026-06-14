@@ -17,8 +17,9 @@ export const favoriteApiService = {
         await fetch(BASE_URL+"/users/" + user.id + "/favorites/"+buildingId, {
             method: "POST",
             headers: {
-                "Content-Type": "application/json"
-            }
+                "Content-Type": "application/json",
+                "Authorization": `Bearer ${localStorage.getItem("token")}`
+            },
         })
     },
     async removeFavorite(buildingId:number) {
@@ -26,8 +27,9 @@ export const favoriteApiService = {
         await fetch(BASE_URL+"/users/" + user.id + "/favorites/"+buildingId, {
             method: "DELETE",
             headers: {
-                "Content-Type": "application/json"
-            }
+                "Content-Type": "application/json",
+                "Authorization": `Bearer ${localStorage.getItem("token")}`
+            },
         })
     },
     async getFavorites():Promise<BuildingResponse[]> {
@@ -35,8 +37,9 @@ export const favoriteApiService = {
         const response = await fetch(BASE_URL+"/users/" + user.id + "/favorites", {
             method: "GET",
             headers: {
-                "Content-Type": "application/json"
-            }
+                "Content-Type": "application/json",
+                "Authorization": `Bearer ${localStorage.getItem("token")}`
+            },
         })
 
         return response.json();
@@ -47,3 +50,4 @@ export const favoriteApiService = {
         return isFav;
     },
 }
+

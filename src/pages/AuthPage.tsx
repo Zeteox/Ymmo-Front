@@ -92,7 +92,7 @@ export default function AuthPage({ agencies = [], isRegister = false }: AuthPage
 
   return (
     <div className="min-h-screen bg-slate-950 flex flex-col items-center justify-center px-4 py-16">
-      <a href="/" className="flex items-center gap-2 mb-10">
+      <Link to="/" className="flex items-center gap-2 mb-10">
         <div className="w-9 h-9 bg-blue-600 rounded-sm flex items-center justify-center shadow-lg shadow-blue-600/30">
           <FaHouse className="text-white w-4 h-4" />
         </div>
@@ -102,13 +102,13 @@ export default function AuthPage({ agencies = [], isRegister = false }: AuthPage
         >
           Ymmo
         </span>
-      </a>
+      </Link>
 
       <div className="w-full max-w-md bg-slate-900 border border-slate-800 rounded-2xl shadow-2xl overflow-hidden">
 
         <div className="flex border-b border-slate-800">
-          <a
-            href="/login"
+          <Link
+            to="/login"
             className={`flex-1 text-center py-4 text-sm font-semibold transition-colors ${
               !isRegister
                 ? "text-white border-b-2 border-blue-500 bg-slate-900"
@@ -116,9 +116,9 @@ export default function AuthPage({ agencies = [], isRegister = false }: AuthPage
             }`}
           >
             Connexion
-          </a>
-          <a
-            href="/register"
+          </Link>
+          <Link
+            to="/register"
             className={`flex-1 text-center py-4 text-sm font-semibold transition-colors ${
               isRegister
                 ? "text-white border-b-2 border-blue-500 bg-slate-900"
@@ -126,7 +126,7 @@ export default function AuthPage({ agencies = [], isRegister = false }: AuthPage
             }`}
           >
             Créer un compte
-          </a>
+          </Link>
         </div>
 
         <div className="p-8">
@@ -280,11 +280,6 @@ export default function AuthPage({ agencies = [], isRegister = false }: AuthPage
             <div>
               <div className="flex items-center justify-between mb-1.5">
                 <label className="block text-xs text-slate-400 font-medium">Mot de passe</label>
-                {!isRegister && (
-                  <a href="/forgot-password" className="text-xs text-blue-500 hover:text-blue-400 transition-colors">
-                    Mot de passe oublié ?
-                  </a>
-                )}
               </div>
               <div className="relative">
                 <HiOutlineLockClosed className="absolute left-3 top-1/2 -translate-y-1/2 text-slate-500 w-4 h-4" />
@@ -370,9 +365,9 @@ export default function AuthPage({ agencies = [], isRegister = false }: AuthPage
         </div>
       </div>
 
-      <a href="/" className="mt-8 text-xs text-slate-600 hover:text-slate-400 transition-colors">
+      <Link to="/" className="mt-8 text-xs text-slate-600 hover:text-slate-400 transition-colors">
         ← Retour à l'accueil
-      </a>
+      </Link>
     </div>
   );
 }
