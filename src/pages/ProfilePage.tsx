@@ -11,7 +11,7 @@ const ROLE_LABELS: Record<string, string> = {
 };
 
 export default function ProfilePage() {
-  const [user, setUser] = useState<UserResponse | null>(null);
+  const [user, setUser] = useState<UserResponse | undefined>(undefined);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState("");
 
