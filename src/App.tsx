@@ -1,4 +1,4 @@
-import { useState, useEffect, use } from "react";
+import { useState, useEffect } from "react";
 import type { AgencyResponse } from "./types/api";
 import { fetchAgencies } from "./services/api";
 import Navbar from "./components/Navbar";
