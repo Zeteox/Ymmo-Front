@@ -47,6 +47,7 @@ export function BuildingPage() {
 
   useEffect(() => {
     if (!buildingId) return;
+    if (!window.localStorage.getItem("token")) return;
     favoriteApiService.isFavorite(buildingId).then(resp => setFavorited(resp));
   }, [buildingId]);
 
