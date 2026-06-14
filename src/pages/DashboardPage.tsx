@@ -18,7 +18,7 @@ import { transactionApiService } from "../services/transactionsApiService";
 import { AddTransactionModal } from "../components/AddtransactionModal";
 import type { TransactionPayload } from "../types/utils";
 
-const API_URL = import.meta.env.VITE_IA_API_URL;
+const API_URL = import.meta.env.VITE_IA_API_URL ?? "/ia";
 
 function getCleanName(name: string) {
   return name

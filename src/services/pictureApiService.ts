@@ -1,6 +1,6 @@
 import type { BuildingPictureResponse } from "../types/api";
 
-const BASE_URL = import.meta.env.VITE_MAIN_API_URL;
+const BASE_URL = import.meta.env.VITE_MAIN_API_URL ?? "/api";
 
 function authHeaders(): HeadersInit {
   return {

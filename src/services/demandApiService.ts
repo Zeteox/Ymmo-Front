@@ -1,6 +1,6 @@
 import type { ContactDemandResponse } from "../types/api";
 
-const BASE_URL = import.meta.env.VITE_MAIN_API_URL;
+const BASE_URL = import.meta.env.VITE_MAIN_API_URL ?? "/api";
 
 export const demandApiService = {
     async addDemand(buildingId: string, data:{userId:number, content:string}) {

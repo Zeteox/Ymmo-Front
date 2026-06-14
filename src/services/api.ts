@@ -4,7 +4,7 @@ import type {
   BuildingPictureResponse,
 } from "../types/api";
 
-const BASE_URL = import.meta.env.VITE_MAIN_API_URL;
+const BASE_URL = import.meta.env.VITE_MAIN_API_URL ?? "/api";
 
 function authHeaders(): HeadersInit {
   const token = localStorage.getItem("token");
@@ -36,4 +36,3 @@ export const fetchBuildingsByAgency = (agencyId: number): Promise<BuildingRespon
 
 export const fetchBuildingPictures = (buildingId: number): Promise<BuildingPictureResponse[]> =>
   get<BuildingPictureResponse[]>(`/buildings/${buildingId}/pictures`);
-

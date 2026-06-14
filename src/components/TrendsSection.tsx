@@ -3,7 +3,10 @@ import { FaArrowTrendUp, FaChevronLeft, FaChevronRight } from "react-icons/fa6";
 import type { BuildingPictureResponse, BuildingResponse, TrendByZoneTypeResponse } from "../types/api";
 import BuildingCard from "./BuildingCard";
 
-const PYTHON_API = import.meta.env.VITE_PYTHON_API_URL ?? "http://localhost:5100";
+const PYTHON_API =
+  import.meta.env.VITE_PYTHON_API_URL ??
+  import.meta.env.VITE_IA_API_URL ??
+  "/ia";
 
 interface TrendsSectionProps {
   buildings: BuildingResponse[];

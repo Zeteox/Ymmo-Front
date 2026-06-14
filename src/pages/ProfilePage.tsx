@@ -17,7 +17,13 @@ export default function ProfilePage() {
 
   useEffect(() => {
     userApiService.getMe()
-      .then(setUser)
+      .then((currentUser) => {
+        if (!currentUser) {
+          setError("Session expirée. Veuillez vous reconnecter.");
+          return;
+        }
+        setUser(currentUser);
+      })
       .catch(() => {
         setError("Session expirée. Veuillez vous reconnecter.");
       })

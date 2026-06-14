@@ -1,4 +1,4 @@
-const BASE_URL = import.meta.env.VITE_MAIN_API_URL;
+const BASE_URL = import.meta.env.VITE_MAIN_API_URL ?? "/api";
 
 import type { TransactionResponse } from "../types/api"
 import type { TransactionPayload } from "../types/utils";
